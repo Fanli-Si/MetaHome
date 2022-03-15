@@ -10,8 +10,8 @@ import com.csis3275.models.LoginFromat.LoginFormat;
 
 public interface LoginformatRepository extends JpaRepository<LoginFormat, Long>{
 	
-	List<LoginFormat> findByFirstUsername(String username);
-	List<LoginFormat> findByLastName(String password);
+	List<LoginFormat> findByUsername(String username);
+	List<LoginFormat> findByPassword(String password);
 	
 	
 }

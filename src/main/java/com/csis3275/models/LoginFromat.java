@@ -24,13 +24,13 @@ public class LoginFromat {
 		private String password;
 
 		public LoginFormat(String username, String password) {
-			super();
+			
 			this.username = username;
 			this.password = password;
 		}
 
 		public LoginFormat() {
-			super();
+			
 		}
 
 		public long getUserID() {
