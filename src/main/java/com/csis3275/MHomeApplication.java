@@ -5,8 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.csis3275.models.Registeryformat;
+import com.csis3275.models.RegisteryformatRepository;
 import com.csis3275.models.User;
 import com.csis3275.models.UserRepository;
+
 
 @SpringBootApplication
 public class MHomeApplication {
@@ -24,4 +27,16 @@ public class MHomeApplication {
 			repository.save(new User("Luigi", "Luigi", "xxxx Mushroom Kingdom", "LuigiTime@email.com", 666666666));
 		};
 	}
+	
+	ApplicationRunner init(RegisteryformatRepository repository) {
+		return args -> {
+
+			repository.save(new Registeryformat("Lee", "Last Name",30 ,"Lee@yahoo.com","Omar33","123456"));
+			repository.save(new Registeryformat("Fainl", "Last Name",30 ,"Fainl@yahoo.com","Omar33","123456"));
+			repository.save(new Registeryformat("Kidny", "Last Name",30 ,"Kidny@yahoo.com","Omar33","123456"));
+			repository.save(new Registeryformat("Omar", "Al-khazraji",30 ,"omarheader@yahoo.com","Omar33","123456"));
+			repository.findAll().forEach(System.out::println);
+		};
+	}
+	
 }
