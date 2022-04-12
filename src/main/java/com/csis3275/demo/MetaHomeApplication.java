@@ -1,5 +1,7 @@
 package com.csis3275.demo;
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.boot.ApplicationRunner;
 
 
@@ -24,15 +26,17 @@ public class MetaHomeApplication {
 	ApplicationRunner init(OrderRepository orderRepository, 
 			UserRepository userRepository) {
 		return args -> {
+			
+			SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 
 			Order[] orders = { 
-					new Order("CSIS2175", 0, "Advanced integrated software development", null, 0),
-					new Order("CSIS3275", 0, "Software engineering", null, 0), 
-					new Order("CSIS1190", 0, "Excel for business", null, 0) };
+					new Order("1234", 1, "item1", ft.parse("2022-04-10"), 112233),
+					new Order("1235", 2, "item2", ft.parse("2022-04-11"), 112244), 
+					new Order("1236", 3, "item3", ft.parse("2022-04-12"), 112255) };
 
 			
 			User[] users = { 
-					new User("03123456", "Simon Li", "123456"),
+					new User("300321101", "Hyukjoo Lee", "1234"),
 					new User("03456789", "Ivan Wong", "123456") };
 
 			users[0].addOrder(orders[0]);

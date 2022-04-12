@@ -44,7 +44,7 @@ public class LoginController {
 				MessageResponse msg = new MessageResponse("Incorrect password");
 				return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
 			}
-			MessageResponse msg = new MessageResponse("No such a student");
+			MessageResponse msg = new MessageResponse("Incorrect UserName");
 			return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
 		} catch (Exception e) {
 			MessageResponse msg = new MessageResponse("Server Error");

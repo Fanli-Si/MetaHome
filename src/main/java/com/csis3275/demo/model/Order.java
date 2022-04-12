@@ -2,6 +2,7 @@ package com.csis3275.demo.model;
 
 import java.util.Date;
 
+
 import java.util.HashSet;
 
 import java.util.Set;
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "orders")
 public class Order {
 
-	// customer id, item numbers, order number, order date, tracking number
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

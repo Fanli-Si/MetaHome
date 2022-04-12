@@ -2,6 +2,7 @@ package com.csis3275.demo.model;
 
 import java.util.HashSet;
 
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -90,7 +91,7 @@ public class User {
 		order.getUsers().add(this);
 	}
 
-	public void removeCourse(Order order) {
+	public void removeOrder(Order order) {
 		order.getUsers().remove(this);
 		this.orders.remove(order);
 	}
