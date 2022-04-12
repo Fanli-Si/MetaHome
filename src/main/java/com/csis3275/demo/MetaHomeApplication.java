@@ -68,7 +68,30 @@ public class MetaHomeApplication {
 					new Item("Milk 4L", "Food", 5.25, "Dairy, Food"),
 					new Item("Milk 1L","Food",3.50,"Dairy,Food"),
 					new Item("Basmatti Rice", "Food", 12.00,"Food, Rice, Cooking"),
-					new Item("Jasmine Rice", "Food", 12.00, "Food, Rice, Cooking")
+					new Item("Jasmine Rice", "Food", 12.00, "Food, Rice, Cooking"),
+					new Item("Granny Smith Apple", "Food", 0.45,"Fruit, Food, Apple"),
+					new Item("Gala Apple", "Food", 0.45, "Fruit, Food, Apple"),
+					new Item("Toothpaste", "Bathroom", 2.50, "Teeth, Bathroom, Hygene"),
+					new Item("Mouthwash", "Bathroom", 4.00, "Teeth, Bathroom, Hygene"),
+					new Item("Floss", "Bathroom", 2.20,"Teeth, Bathroom, Hygene"),
+					new Item("Toothbrush", "Bathroom", 3.00, "Teeth, Bathroom, Hygene"),
+					new Item("Ground Ginger", "Food", 2.50, "Food, Herbs and Spices, Cooking"),
+					new Item("Tumeric","Food", 2.50, "Food, Herbs and Spices, Cooking"),
+					new Item("Cayanne Pepper","Food", 2.50,"Food, Herbs and Spices, Cooking"),
+					new Item("Siracha","Food", 4.20, "Food, Cooking, Condiments"),
+					new Item("Mayo", "Food", 5.20, "Food, Condiments"),
+					new Item("Ketchup", "Food", 5.00, "Food, Condiments"),
+					new Item("Ground Beef", "Food", 7.25,"Food, Meat, Raw, Beef, Cooking"),
+					new Item("White Bread", "Food", 3.00,"Food, Bakery, Bread"),
+					new Item("Whole Wheat Bread", "Food", 3.00, "Food, Bakery, Bread"),
+					new Item("Sourdough Bread", "Food", 3.00, "Food, Bakery, Bread"),
+					new Item("Coke - 24 Pack", "Food", 9.99, "Drink, Coke, Soda, Cans"),
+					new Item("Pepsi - 24 Pack", "Food", 9.99, "Drink, Pepsi, Soda, Cans"),
+					new Item("Dr.Pepper - 24 Pack", "Food", 9.99, "Drink, Dr.Pepper, Soda, Cans"),
+					new Item("Coke - 2L", "Food", 3.75, "Drink, Coke, Soda"),
+					new Item("Nestea - 2L", "Food", 3.75, "Drink, Iced Tea, Soda"),
+					new Item("12 Eggs - Large", "Food", 4.40, "Food, Eggs, Cooking")
+					
 			};
 
 			users[0].addOrder(orders[0]);
