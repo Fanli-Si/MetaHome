@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+D:\Software Engineering CSIS 3275 070\project\Project\MetaHome\.metadata\.plugins\org.eclipse.jdt.core
