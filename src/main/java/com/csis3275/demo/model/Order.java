@@ -128,5 +128,34 @@ public class Order {
 		this.tracking_number = tracking_number;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Item> items) {
+		this.items = items;
+	}
+	
+	public void addItem(Item item) {
+		this.items.add(item);
+		item.setOrder(this);
+	}
+
 
 }

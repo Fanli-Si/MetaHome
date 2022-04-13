@@ -86,6 +86,17 @@ public class User {
 		this.orders = orders;
 	}
 	
+	public void addOrder(Order order) {
+		this.orders.add(order);
+		order.getUser().add(this);
+		
+	}
+
+	public void removeOrder(Order order) {
+		order.getUser().remove(this);
+		this.orders.remove(order);
+	}
+	
 
 
 }
