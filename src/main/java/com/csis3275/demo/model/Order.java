@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -46,14 +47,24 @@ public class Order {
 	
 	@Column(name = "tracking_number")
 	private int tracking_number;
+	
+	@Column(name = "Status")//to divide the difference between open/current orders and past/close orders
+	private String status;
+	
 
+	// One order only has one user, so user and order is a one to many relationship, so here we use many to one
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
+	// One order can have many item, and one item can appears in many orders, item and order are many-to-many relationship
 	@JsonIgnore 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "orders_users", joinColumns = { 
+	@JoinTable(name = "orders_items", joinColumns = { 
 		@JoinColumn(name = "order_number", referencedColumnName = "id") }, inverseJoinColumns = {
-		@JoinColumn(name = "userId", referencedColumnName = "id") })
-	private Set<User> users = new HashSet<>();
-
+		@JoinColumn(name = "itemId", referencedColumnName = "id") })
+	private Set<Item> items = new HashSet<>();
+	
 	
 	public Order() {
 
@@ -117,12 +128,5 @@ public class Order {
 		this.tracking_number = tracking_number;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 
 }

@@ -1,10 +1,18 @@
 package com.csis3275.demo.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,33 +26,34 @@ public class Item {
 	@Column(name = "itemName")
 	private String itemName;
 	
-	@Column(name = "department")
-	private String department;
+	@Column(name = "price")
+	private double price;
 	
-	@Column(name = "cost")
-	private double cost;
+	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
+	private double shelfLife;
 	
-	@Column(name = "tags")
-	private String tags;
+	@Column(name = "receive_date")
+	private Date receive_date; // For simplicity, we can let order date == receive date
+	
+	@Column(name = "expected_refillment_date")
+	private Date exp_ref_date;
+	
+	//for department, I changed into category, and created a category entity. So we can see in each different department, how many things we have and going to be order
+	//Item and Category are one-to-many relationship. many item share one category, but one category can have more than one item
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "cat_id", nullable = false)
+	private Category category;
 	
 	public Item() {
 		
 	}
 	
-	public Item(String itemName, String department, double cost, String tags) {
+	public Item(String itemName, String department, double price, double shelfLife) {
 		this.itemName = itemName;
-		this.department = department;
-		this.cost = cost;
-		this.tags = tags;
+		this.price = price;
+		this.shelfLife = shelfLife;
 	}
 
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
 
 	public long getItemId() {
 		return itemId;
@@ -62,19 +71,12 @@ public class Item {
 		this.itemName = itemName;
 	}
 
-	public String getDepartment() {
-		return department;
+
+	public double getPrice() {
+		return price;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setPrice(double Price) {
+		this.price = price;
 	}
 }
