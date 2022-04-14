@@ -36,12 +36,6 @@ public class Item {
 	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
 	private double shelfLife;
 	
-	@Column(name = "receive_date")
-	private Date receive_date; // For simplicity, we can let order date == receive date
-	
-	@Column(name = "expected_refillment_date")
-	private Date exp_ref_date;
-	
 	//for department, I changed into category, and created a category entity. So we can see in each different department, how many things we have and going to be order
 	//Item and Category are one-to-many relationship. many item share one category, but one category can have more than one item
 	@ManyToOne(fetch = FetchType.LAZY, optional=false)
@@ -53,13 +47,11 @@ public class Item {
 		
 	}
 	
-	public Item(String itemName, String department, double price, String tag, double shelfLife, Date receive_date, Date exp_ref_date ) {
+	public Item(String itemName, double price, String tag, double shelfLife) {
 		this.itemName = itemName;
 		this.price = price;
 		this.tag = tag;
 		this.shelfLife = shelfLife;
-		this.receive_date = receive_date;
-		this.exp_ref_date = exp_ref_date;
 	}
 
 

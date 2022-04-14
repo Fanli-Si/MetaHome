@@ -34,6 +34,12 @@ public class User {
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Order> orders = new HashSet<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<Receipt> receipts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<Inventory> inventory = new HashSet<>();
 
 
 	public User() {
@@ -86,6 +92,24 @@ public class User {
 		this.orders = orders;
 	}
 	
+	
+	public Set<Receipt> getReceipts() {
+		return receipts;
+	}
+
+	public void setReceipts(Set<Receipt> receipts) {
+		this.receipts = receipts;
+	}
+	
+
+	public Set<Inventory> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Set<Inventory> inventory) {
+		this.inventory = inventory;
+	}
+
 	public void addOrder(Order order) {
 		this.orders.add(order);
 		order.getUser().add(this);

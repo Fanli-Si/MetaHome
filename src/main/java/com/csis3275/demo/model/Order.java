@@ -57,6 +57,11 @@ public class Order {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
+	//Each order items has to go to one user's inventory place
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "inventory_id", nullable = false)
+	private Inventory inventory;
+	
 	// One order can have many item, and one item can appears in many orders, item and order are many-to-many relationship
 	@JsonIgnore 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
