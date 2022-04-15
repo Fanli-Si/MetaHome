@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.csis3275.demo.model.Inventory;
 
 @Entity
 @Table(name = "users")
@@ -42,7 +43,7 @@ public class User {
 	
 	//One user has one inventory table to track all the items the user has
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", referencedColumnName = "id")
+	@JoinColumn(name = "inventory_id", referencedColumnName = "inventoryId")
 	private Inventory inventory;
 
 

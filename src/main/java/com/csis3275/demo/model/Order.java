@@ -16,7 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,12 +47,9 @@ public class Order {
 	@Column(name = "tracking_number")
 	private int tracking_number;
 
-	@JsonIgnore 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "orders_users", joinColumns = { 
-		@JoinColumn(name = "order_number", referencedColumnName = "id") }, inverseJoinColumns = {
-		@JoinColumn(name = "userId", referencedColumnName = "id") })
-	private Set<User> users = new HashSet<>();
+	
+	@ManyToOne
+	private User user;
 
 	
 	public Order() {
@@ -68,6 +65,14 @@ public class Order {
 	}
 
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -117,12 +122,5 @@ public class Order {
 		this.tracking_number = tracking_number;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 
 }

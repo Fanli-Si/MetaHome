@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,11 +33,14 @@ public class Item {
 	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
 	private double shelfLife;
 	
-	@OneToMany(mappedBy = "item")
-	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
+	@ManyToOne
+	private Order order;
 	
-	@OneToMany(mappedBy = "item")
-	private Set<ReceiptItem> receiptItems = new HashSet<ReceiptItem>();
+//	@OneToMany(mappedBy = "item")
+//	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
+//	
+//	@OneToMany(mappedBy = "item")
+//	private Set<ReceiptItem> receiptItems = new HashSet<ReceiptItem>();
 	
 	public Item() {
 		
@@ -49,6 +53,14 @@ public class Item {
 		this.shelfLife = shelfLife;
 	}
 
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
 	public long getItemId() {
 		return itemId;
@@ -91,21 +103,21 @@ public class Item {
 		this.tag = tag;
 	}
 
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(Set<OrderItem> orderItems) {
-		this.orderItems = orderItems;
-	}
-
-	public Set<ReceiptItem> getReceiptItems() {
-		return receiptItems;
-	}
-
-	public void setReceiptItems(Set<ReceiptItem> receiptItems) {
-		this.receiptItems = receiptItems;
-	}
+//	public Set<OrderItem> getOrderItems() {
+//		return orderItems;
+//	}
+//
+//	public void setOrderItems(Set<OrderItem> orderItems) {
+//		this.orderItems = orderItems;
+//	}
+//
+//	public Set<ReceiptItem> getReceiptItems() {
+//		return receiptItems;
+//	}
+//
+//	public void setReceiptItems(Set<ReceiptItem> receiptItems) {
+//		this.receiptItems = receiptItems;
+//	}
 	
 	
 }
