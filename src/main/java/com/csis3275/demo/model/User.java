@@ -2,7 +2,6 @@ package com.csis3275.demo.model;
 
 import java.util.HashSet;
 
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,23 +35,22 @@ public class User {
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Order> orders = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Receipt> receipts = new HashSet<>();
-	
-	//One user has one inventory table to track all the items the user has
+
+	// One user has one inventory table to track all the items the user has
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "inventory_id", referencedColumnName = "id")
 	private Inventory inventory;
 
-
 	public User() {
-		
+
 	}
-	
+
 	public User(String userId, String name, String password) {
 		this.userId = userId;
-		this.name = name; 
+		this.name = name;
 		this.password = password;
 	}
 
@@ -95,8 +93,7 @@ public class User {
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
-	
-	
+
 	public Set<Receipt> getReceipts() {
 		return receipts;
 	}
@@ -104,7 +101,6 @@ public class User {
 	public void setReceipts(Set<Receipt> receipts) {
 		this.receipts = receipts;
 	}
-	
 
 	public Inventory getInventory() {
 		return inventory;
@@ -117,17 +113,17 @@ public class User {
 	public void addOrder(Order order) {
 		this.orders.add(order);
 	}
-	
+
 	public void removeOrder(Order order) {
 		this.orders.remove(order);
 	}
-	
+
 	public void addReceipt(Receipt receipt) {
 		this.receipts.add(receipt);
 	}
-	
+
 	public void removeReceipt(Receipt receipt) {
 		this.receipts.remove(receipt);
 	}
-	
+
 }

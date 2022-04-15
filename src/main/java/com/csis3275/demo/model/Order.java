@@ -2,7 +2,6 @@ package com.csis3275.demo.model;
 
 import java.util.Date;
 
-
 import java.util.HashSet;
 
 import java.util.Set;
@@ -25,34 +24,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "orders")
 public class Order {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@Column(name = "order_number")
 	private String order_number;
-	
+
 	@Column(name = "order_date")
 	private Date order_date;
-	
+
 	@Column(name = "tracking_number")
 	private String tracking_number;
-	
-	@Column(name = "isClose")//to divide the difference between open/current orders and past/close orders
+
+	@Column(name = "isClose") // to divide the difference between open/current orders and past/close orders
 	private boolean close;
-	
+
 	@Column(name = "total_cost")
 	private double total_cost;
-	
-	// One order only has one user, so user and order is a one to many relationship, so here we use many to one
+
+	// One order only has one user, so user and order is a one to many relationship,
+	// so here we use many to one
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
+
 	@OneToMany(mappedBy = "order")
 	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
-	
+
 	public Order() {
 
 	}
@@ -65,7 +64,6 @@ public class Order {
 		this.total_cost = total_cost;
 	}
 
-	
 	public long getId() {
 		return id;
 	}
@@ -81,7 +79,6 @@ public class Order {
 	public void setOrder_number(String order_number) {
 		this.order_number = order_number;
 	}
-
 
 	public Date getOrder_date() {
 		return order_date;
@@ -99,7 +96,6 @@ public class Order {
 	public void setTracking_number(String tracking_number) {
 		this.tracking_number = tracking_number;
 	}
-
 
 	public boolean isClose() {
 		return close;
@@ -132,10 +128,9 @@ public class Order {
 	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
-	
+
 	public void addOrderItems(OrderItem orderItem) {
 		this.orderItems.add(orderItem);
 	}
-	
 
 }

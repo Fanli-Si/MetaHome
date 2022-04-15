@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "items")
 public class Item {
@@ -24,42 +23,41 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long itemId;
-	
+
 	@Column(name = "itemName")
 	private String itemName;
-	
+
 	@Column(name = "price")
 	private double price;
-	
+
 	@Column(name = "tag")
 	private String tag;
-	
-	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
+
+	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add
+								// shelf_life for it for reminder expectation
 	private double shelfLife;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional=false)
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "category_id", nullable = false)
 	@JsonIgnore
 	private Category category;
-	
+
 	@OneToMany(mappedBy = "item")
 	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
-	
+
 	@OneToMany(mappedBy = "item")
 	private Set<ReceiptItem> receiptItems = new HashSet<ReceiptItem>();
-	
-	
+
 	public Item() {
-		
+
 	}
-	
+
 	public Item(String itemName, double price, String tag, double shelfLife) {
 		this.itemName = itemName;
 		this.price = price;
 		this.tag = tag;
 		this.shelfLife = shelfLife;
 	}
-
 
 	public long getItemId() {
 		return itemId;
@@ -76,7 +74,6 @@ public class Item {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-
 
 	public double getPrice() {
 		return price;
@@ -125,6 +122,5 @@ public class Item {
 	public void setReceiptItems(Set<ReceiptItem> receiptItems) {
 		this.receiptItems = receiptItems;
 	}
-	
-	
+
 }

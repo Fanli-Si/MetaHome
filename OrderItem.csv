@@ -1,0 +1,35 @@
+OrderItem
+
+Order Id 1234
+user id 300321101
+paper towels, 2, 20, true, 2, ft.parse("2022-04-11")
+Milk 4L, 1, 5,25, true, 0.25,  ft.parse("2022-04-11")
+Ketchup, 1, 5.00, true, 6, ft.parse("2022-04-11")
+
+
+
+Receipt 6789
+ft.parse("2022-04-13"), 
+total cost = 17
+
+
+
+ReceiptItem
+Receipt ID 6789
+user id 03456789
+Toilet Paper, 1, 10.00, 1
+Dish Soap, 1, 7.00, 0.5
+
+
+Inventory:
+inventoryID  1122334455
+user id 03456789
+Toilet Paper, ft.parse("2022-05-13"),
+Dish Soap, ft.parse("2022-04-27"), 
+
+
+inventoryID  9988770022
+user id 300321101
+paper towels ft.parse("2022-06-11"),
+Milk 4L, ft.parse("2022-04-18"), 
+Ketchup, ft.parse("2022-06-11")
