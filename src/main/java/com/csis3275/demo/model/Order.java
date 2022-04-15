@@ -15,11 +15,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orders")
@@ -31,38 +33,38 @@ public class Order {
 	private long id;
 
 	@Column(name = "order_number")
-	private String order_number;
+	private int order_number;
+
+	@Column(name = "item_number")
+	private String item_number;
+
+	@Column(name = "item_title")
+	private String item_title;
 	
 	@Column(name = "order_date")
 	private Date order_date;
 	
 	@Column(name = "tracking_number")
-	private String tracking_number;
-	
-	@Column(name = "isClose")//to divide the difference between open/current orders and past/close orders
-	private boolean close;
-	
-	@Column(name = "total_cost")
-	private double total_cost;
-	
-	// One order only has one user, so user and order is a one to many relationship, so here we use many to one
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-	
-	@OneToMany(mappedBy = "order")
-	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
+	private int tracking_number;
+
+	@JsonIgnore 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "orders_users", joinColumns = { 
+		@JoinColumn(name = "order_number", referencedColumnName = "id") }, inverseJoinColumns = {
+		@JoinColumn(name = "userId", referencedColumnName = "id") })
+	private Set<User> users = new HashSet<>();
+
 	
 	public Order() {
 
 	}
 
-	public Order(String order_number, Date order_date, String tracking_number, Boolean status, double total_cost) {
+	public Order(int order_number, String item_number, String item_title, Date order_date, int tracking_number) {
 		this.order_number = order_number;
+		this.item_number = item_number;
+		this.item_title = item_title;
 		this.order_date = order_date;
 		this.tracking_number = tracking_number;
-		this.close = status;
-		this.total_cost = total_cost;
 	}
 
 	
@@ -74,14 +76,29 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getOrder_number() {
+	public int getOrder_number() {
 		return order_number;
 	}
 
-	public void setOrder_number(String order_number) {
+	public void setOrder_number(int order_number) {
 		this.order_number = order_number;
 	}
 
+	public String getItem_number() {
+		return item_number;
+	}
+
+	public void setItem_number(String item_number) {
+		this.item_number = item_number;
+	}
+
+	public String getItem_title() {
+		return item_title;
+	}
+
+	public void setItem_title(String item_title) {
+		this.item_title = item_title;
+	}
 
 	public Date getOrder_date() {
 		return order_date;
@@ -92,50 +109,20 @@ public class Order {
 		this.order_date = order_date;
 	}
 
-	public String getTracking_number() {
+	public int getTracking_number() {
 		return tracking_number;
 	}
 
-	public void setTracking_number(String tracking_number) {
+	public void setTracking_number(int tracking_number) {
 		this.tracking_number = tracking_number;
 	}
 
-
-	public boolean isClose() {
-		return close;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setClose(boolean close) {
-		this.close = close;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public double getTotal_cost() {
-		return total_cost;
-	}
-
-	public void setTotal_cost(double total_cost) {
-		this.total_cost = total_cost;
-	}
-
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(Set<OrderItem> orderItems) {
-		this.orderItems = orderItems;
-	}
-	
-	public void addOrderItems(OrderItem orderItem) {
-		this.orderItems.add(orderItem);
-	}
-	
 
 }
