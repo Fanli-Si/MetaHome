@@ -31,12 +31,7 @@ public class MetaHomeApplication {
 			
 			SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 
-			Order[] orders = { 
-//					new Order("1234", ft.parse("2022-04-10"), "112233", true, 30.27),
-//					new Order("1235", ft.parse("2022-04-11"), "112244", true, 22.84), 
-//					new Order("1236", ft.parse("2022-04-12"), "112255", false, 11.90)
 
-		};
 			User[] users = { 
 					new User("300321101", "Hyukjoo Lee", "1234"),
 					new User("03456789", "Ivan Wong", "123456") };
@@ -101,6 +96,13 @@ public class MetaHomeApplication {
 					new Item("12 Eggs - Large", 4.40, "Food, Eggs, Cooking",0.5)
 					
 			};
+			
+			Order[] orders = { 
+					new Order(1234, items[0],ft.parse("2022-04-11"),1,users[0])
+//					new Order("1235", ft.parse("2022-04-11"), "112244", true, 22.84), 
+//					new Order("1236", ft.parse("2022-04-12"), "112255", false, 11.90)
+
+		};
 
 			users[0].addOrder(orders[0]);
 			users[0].addOrder(orders[1]);

@@ -49,7 +49,7 @@ public class InventoryController {
 	}
 	
 	@GetMapping("/inventory/{uid}")
-	public ResponseEntity<Inventory> getInventoryByUserId(@PathVariable("id") Item item){
+	public ResponseEntity<Inventory> getInventoryByUserId(@PathVariable("uid") Item item){
 		Optional<Inventory> inventoryData = inventoryRepository.findByItemId(item.getItemId());
 		
 		if (inventoryData.isPresent()) {

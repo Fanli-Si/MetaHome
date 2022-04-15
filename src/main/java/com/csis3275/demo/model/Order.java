@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import java.util.Set;
 
+import javax.management.loading.PrivateClassLoader;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,11 +37,8 @@ public class Order {
 	@Column(name = "order_number")
 	private int order_number;
 
-	@Column(name = "item_number")
-	private String item_number;
-
-	@Column(name = "item_title")
-	private String item_title;
+	@OneToMany(mappedBy = "item")
+	private Item item;
 	
 	@Column(name = "order_date")
 	private Date order_date;
@@ -56,12 +55,12 @@ public class Order {
 
 	}
 
-	public Order(int order_number, String item_number, String item_title, Date order_date, int tracking_number) {
+	public Order(int order_number, Item item, Date order_date, int tracking_number, User user) {
 		this.order_number = order_number;
-		this.item_number = item_number;
-		this.item_title = item_title;
+		this.item = item;
 		this.order_date = order_date;
 		this.tracking_number = tracking_number;
+		this.user = user;
 	}
 
 	
