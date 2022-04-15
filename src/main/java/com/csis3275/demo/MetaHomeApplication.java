@@ -33,7 +33,7 @@ public class MetaHomeApplication {
 			SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 
 			Order[] orders = { 
-					new Order("1234", ft.parse("2022-04-10"), "112233", true, 30.27),
+					new Order("1234", ft.parse("2022-04-10"), "112233", true, 30.25),
 					new Order("1235", ft.parse("2022-04-11"), "112244", true, 22.84), 
 					new Order("1236", ft.parse("2022-04-12"), "112255", false, 11.90)};
 

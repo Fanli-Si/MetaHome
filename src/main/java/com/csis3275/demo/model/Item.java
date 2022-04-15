@@ -5,11 +5,16 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -32,11 +37,17 @@ public class Item {
 	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
 	private double shelfLife;
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
+	@JoinColumn(name = "category_id", nullable = false)
+	@JsonIgnore
+	private Category category;
+	
 	@OneToMany(mappedBy = "item")
 	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 	
 	@OneToMany(mappedBy = "item")
 	private Set<ReceiptItem> receiptItems = new HashSet<ReceiptItem>();
+	
 	
 	public Item() {
 		
@@ -81,6 +92,14 @@ public class Item {
 
 	public void setShelfLife(double shelfLife) {
 		this.shelfLife = shelfLife;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getTag() {
