@@ -12,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,8 +40,10 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Receipt> receipts = new HashSet<>();
 	
-	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Set<Inventory> inventory = new HashSet<>();
+	//One user has one inventory table to track all the items the user has
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "inventory_id", referencedColumnName = "id")
+	private Inventory inventory;
 
 
 	public User() {
@@ -102,25 +106,28 @@ public class User {
 	}
 	
 
-	public Set<Inventory> getInventory() {
+	public Inventory getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(Set<Inventory> inventory) {
+	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
 
 	public void addOrder(Order order) {
 		this.orders.add(order);
-		order.getUser().add(this);
-		
 	}
-
+	
 	public void removeOrder(Order order) {
-		order.getUser().remove(this);
 		this.orders.remove(order);
 	}
 	
-
-
+	public void addReceipt(Receipt receipt) {
+		this.receipts.add(receipt);
+	}
+	
+	public void removeReceipt(Receipt receipt) {
+		this.receipts.remove(receipt);
+	}
+	
 }

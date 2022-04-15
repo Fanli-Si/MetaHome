@@ -15,14 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orders")
@@ -35,52 +32,37 @@ public class Order {
 
 	@Column(name = "order_number")
 	private String order_number;
-
-	@Column(name = "item_number")
-	private int item_number;
-
-	@Column(name = "item_title")
-	private String item_title;
 	
 	@Column(name = "order_date")
 	private Date order_date;
 	
 	@Column(name = "tracking_number")
-	private int tracking_number;
+	private String tracking_number;
 	
-	@Column(name = "Status")//to divide the difference between open/current orders and past/close orders
-	private String status;
+	@Column(name = "isClose")//to divide the difference between open/current orders and past/close orders
+	private boolean close;
 	
-
+	@Column(name = "total_cost")
+	private double total_cost;
+	
 	// One order only has one user, so user and order is a one to many relationship, so here we use many to one
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	//Each order items has to go to one user's inventory place
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "inventory_id", nullable = false)
-	private Inventory inventory;
-	
-	// One order can have many item, and one item can appears in many orders, item and order are many-to-many relationship
-	@JsonIgnore 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "orders_items", joinColumns = { 
-		@JoinColumn(name = "order_number", referencedColumnName = "id") }, inverseJoinColumns = {
-		@JoinColumn(name = "itemId", referencedColumnName = "id") })
-	private Set<Item> items = new HashSet<>();
-	
+	@OneToMany(mappedBy = "order")
+	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 	
 	public Order() {
 
 	}
 
-	public Order(String order_number, int item_number, String item_title, Date order_date, int tracking_number) {
+	public Order(String order_number, Date order_date, String tracking_number, Boolean status, double total_cost) {
 		this.order_number = order_number;
-		this.item_number = item_number;
-		this.item_title = item_title;
 		this.order_date = order_date;
 		this.tracking_number = tracking_number;
+		this.close = status;
+		this.total_cost = total_cost;
 	}
 
 	
@@ -100,21 +82,6 @@ public class Order {
 		this.order_number = order_number;
 	}
 
-	public int getItem_number() {
-		return item_number;
-	}
-
-	public void setItem_number(int item_number) {
-		this.item_number = item_number;
-	}
-
-	public String getItem_title() {
-		return item_title;
-	}
-
-	public void setItem_title(String item_title) {
-		this.item_title = item_title;
-	}
 
 	public Date getOrder_date() {
 		return order_date;
@@ -125,20 +92,21 @@ public class Order {
 		this.order_date = order_date;
 	}
 
-	public int getTracking_number() {
+	public String getTracking_number() {
 		return tracking_number;
 	}
 
-	public void setTracking_number(int tracking_number) {
+	public void setTracking_number(String tracking_number) {
 		this.tracking_number = tracking_number;
 	}
 
-	public String getStatus() {
-		return status;
+
+	public boolean isClose() {
+		return close;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setClose(boolean close) {
+		this.close = close;
 	}
 
 	public User getUser() {
@@ -149,18 +117,25 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<Item> getItems() {
-		return items;
+	public double getTotal_cost() {
+		return total_cost;
 	}
 
-	public void setItems(Set<Item> items) {
-		this.items = items;
+	public void setTotal_cost(double total_cost) {
+		this.total_cost = total_cost;
+	}
+
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 	
-	public void addItem(Item item) {
-		this.items.add(item);
-		item.setOrder(this);
+	public void addOrderItems(OrderItem orderItem) {
+		this.orderItems.add(orderItem);
 	}
-
+	
 
 }

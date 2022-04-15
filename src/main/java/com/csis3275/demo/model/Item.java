@@ -1,20 +1,16 @@
 package com.csis3275.demo.model;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "items")
@@ -36,12 +32,11 @@ public class Item {
 	@Column(name = "shelfLife") // Not sure about what tags does. For our purpose, I think maybe we can add shelf_life for it for reminder expectation 
 	private double shelfLife;
 	
-	//for department, I changed into category, and created a category entity. So we can see in each different department, how many things we have and going to be order
-	//Item and Category are one-to-many relationship. many item share one category, but one category can have more than one item
-	@ManyToOne(fetch = FetchType.LAZY, optional=false)
-	@JoinColumn(name = "order_id", nullable = false)
-	@JsonIgnore
-	private Order order;
+	@OneToMany(mappedBy = "item")
+	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
+	
+	@OneToMany(mappedBy = "item")
+	private Set<ReceiptItem> receiptItems = new HashSet<ReceiptItem>();
 	
 	public Item() {
 		
@@ -88,38 +83,28 @@ public class Item {
 		this.shelfLife = shelfLife;
 	}
 
-	public Date getReceive_date() {
-		return receive_date;
-	}
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public void setReceive_date(Date receive_date) {
-		this.receive_date = receive_date;
-	}
-
-	public Date getExp_ref_date() {
-		return exp_ref_date;
-	}
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public void setExp_ref_date(Date exp_ref_date) {
-		this.exp_ref_date = exp_ref_date;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
 	public String getTag() {
 		return tag;
 	}
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	public Set<ReceiptItem> getReceiptItems() {
+		return receiptItems;
+	}
+
+	public void setReceiptItems(Set<ReceiptItem> receiptItems) {
+		this.receiptItems = receiptItems;
 	}
 	
 	
