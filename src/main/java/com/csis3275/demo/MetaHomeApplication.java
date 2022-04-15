@@ -32,9 +32,9 @@ public class MetaHomeApplication {
 			SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 
 			Order[] orders = { 
-					new Order("1234", 1, "item1", ft.parse("2022-04-10"), 112233),
-					new Order("1235", 2, "item2", ft.parse("2022-04-11"), 112244), 
-					new Order("1236", 3, "item3", ft.parse("2022-04-12"), 112255) };
+					new Order(1, "1", "item1", ft.parse("2022-04-10"), 112233),
+					new Order(2, "2", "item2", ft.parse("2022-04-11"), 112244), 
+					new Order(3, "3", "item3", ft.parse("2022-04-12"), 112255) };
 
 			
 			User[] users = { 

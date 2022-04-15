@@ -33,10 +33,10 @@ public class Order {
 	private long id;
 
 	@Column(name = "order_number")
-	private String order_number;
+	private int order_number;
 
 	@Column(name = "item_number")
-	private int item_number;
+	private String item_number;
 
 	@Column(name = "item_title")
 	private String item_title;
@@ -59,7 +59,7 @@ public class Order {
 
 	}
 
-	public Order(String order_number, int item_number, String item_title, Date order_date, int tracking_number) {
+	public Order(int order_number, String item_number, String item_title, Date order_date, int tracking_number) {
 		this.order_number = order_number;
 		this.item_number = item_number;
 		this.item_title = item_title;
@@ -76,19 +76,19 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getOrder_number() {
+	public int getOrder_number() {
 		return order_number;
 	}
 
-	public void setOrder_number(String order_number) {
+	public void setOrder_number(int order_number) {
 		this.order_number = order_number;
 	}
 
-	public int getItem_number() {
+	public String getItem_number() {
 		return item_number;
 	}
 
-	public void setItem_number(int item_number) {
+	public void setItem_number(String item_number) {
 		this.item_number = item_number;
 	}
 
